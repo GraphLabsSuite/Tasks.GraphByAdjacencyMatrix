@@ -19,6 +19,9 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "gitHooks": {
+    "pre-commit": "npm run lint"
+  },
   "browserslist": [
     ">0.2%",
     "not dead",
