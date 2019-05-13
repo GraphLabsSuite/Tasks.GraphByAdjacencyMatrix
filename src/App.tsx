@@ -1,5 +1,5 @@
-import {Matrix, IMatrix} from 'graphlabs.core.lib';
-import {IGraph, IVertex, IEdge, Graph, Vertex, Edge} from 'graphlabs.core.graphs';
+import {Matrix} from 'graphlabs.core.lib';
+import {Graph, Vertex, Edge} from 'graphlabs.core.graphs';
 import * as React from 'react';
 import './App.css';
 import {
@@ -8,27 +8,24 @@ import {
     store,
     Toolbar,
     ToolButtonList,
-    IEdgeView,
-    IVertexView
 } from "graphlabs.core.template";
+import {FunctionComponent} from "react";
 
 
 class App extends Template {
-
-
-    protected task(): React.SFC<{}> {
+    public task(): FunctionComponent<{}> {
         const matrix = store.getState().matrix;
         return () => (
             <Matrix
-                rows={matrix.length}
-                columns={matrix.length}
-                defaultValues={matrix}
+                rows={5}
+                columns={5}
+                defaultValues={[[0,1,0,0,0],[1,1,1,0,0],[0,1,0,1,0],[1,0,1,1,0],[0,1,0,0,1]]}
                 readonly
             />
         );
     }
 
-    protected getTaskToolbar() {
+    public getTaskToolbar() {
         const graph = new Graph<Vertex, Edge>();
         Toolbar.prototype.getButtonList = () => {
             ToolButtonList.prototype.toolButtons = {
