@@ -8,9 +8,9 @@ import {
     store,
     Toolbar,
     ToolButtonList,
-    IEdgeView
-} from "graphlabs.core.template";
-import {FunctionComponent} from "react";
+    IEdgeView,
+} from 'graphlabs.core.template';
+import {FunctionComponent} from 'react';
 
 class App extends Template {
 
@@ -39,7 +39,20 @@ class App extends Template {
         let jndex: number;
         for (index = 0; index < matrix.length; index++) {
             for (jndex = 0; jndex < matrix.length; jndex++) {
-                if (index !== jndex && (matrix[index][jndex] === 1 && graph.edges.some((e: IEdgeView) => (e.vertexOne === graph.vertices[index].name && e.vertexTwo === graph.vertices[jndex].name || e.vertexOne === graph.vertices[jndex].name && e.vertexTwo === graph.vertices[index].name)) === false || matrix[index][jndex] === 0 && graph.edges.some((e: IEdgeView) => (e.vertexOne === graph.vertices[index].name && e.vertexTwo === graph.vertices[jndex].name || e.vertexOne === graph.vertices[jndex].name && e.vertexTwo === graph.vertices[index].name)) === true)) {
+                if (index !== jndex && (matrix[index][jndex] === 1
+                    && !graph.edges.some((e: IEdgeView) =>
+                        (e.vertexOne === graph.vertices[index].name
+                            && e.vertexTwo === graph.vertices[jndex].name
+                            || e.vertexOne === graph.vertices[jndex].name
+                            && e.vertexTwo === graph.vertices[index].name)
+                    )
+                    || matrix[index][jndex] === 0
+                    && graph.edges.some((e: IEdgeView) =>
+                        (e.vertexOne === graph.vertices[index].name
+                            && e.vertexTwo === graph.vertices[jndex].name
+                            || e.vertexOne === graph.vertices[jndex].name
+                            && e.vertexTwo === graph.vertices[index].name)
+                    ))) {
                     res++;
                 }
             }
@@ -47,18 +60,20 @@ class App extends Template {
         return {success: res === 0, fee: res};
     }
 
-    protected getTaskToolbar(){
-        const graph = new Graph<Vertex,Edge>();
+    protected getTaskToolbar() {
+        const graph = new Graph<Vertex, Edge>();
         Toolbar.prototype.getButtonList = () => {
-            ToolButtonList.prototype.help = () => 'В данном задании вы должны построить граф по матрице смежности, которая находится в правой части модуля. После построения графа нажмите кнопку отправки для проверки задания';
-                ToolButtonList.prototype.toolButtons = {
-                    'https://pngicon.ru/file/uploads/plus.png': () => {   // добавление вершины
+            ToolButtonList.prototype.help = () => 'В данном задании вы должны построить граф по матрице смежности, ' +
+                'которая находится в правой части модуля. ' +
+                'После построения графа нажмите кнопку отправки для проверки задания';
+            ToolButtonList.prototype.toolButtons = {
+                'https://pngicon.ru/file/uploads/plus.png': () => {   // добавление вершины
                     const name = (graph.vertices.length + 1).toString();
                     graph.addVertex(new Vertex(name)); // ??
                     const v = graph.vertices[name]; // ??
                     store.dispatch(graphActionCreators.addVertex(v.name));
                     graph.getVertex(name);
-                }
+                },
             };
             return ToolButtonList;
         };
