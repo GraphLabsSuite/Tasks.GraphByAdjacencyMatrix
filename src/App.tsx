@@ -57,7 +57,7 @@ class App extends Template {
                 }
             }
         }
-        return {success: res === 0, fee: res};
+        return Promise.resolve({success: res === 0, fee: 45});
     }
 
     protected getTaskToolbar() {
@@ -75,6 +75,7 @@ class App extends Template {
                     graph.getVertex(name);
                 },
             };
+            ToolButtonList.prototype.beforeComplete = this.calculate;
             return ToolButtonList;
         };
         return Toolbar;
