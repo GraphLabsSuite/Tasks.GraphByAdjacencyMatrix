@@ -29,7 +29,11 @@
     "fs-extra": "7.0.1",
     "graphlabs.core.graphs": "^0.1.4",
     "graphlabs.core.lib": "^0.1.22",
+<<<<<<< HEAD
     "graphlabs.core.template": "^1.0.55",
+=======
+    "graphlabs.core.template": "^1.0.42",
+>>>>>>> 35068837ae8a1ddbb0819d063dc44860f714dd29
     "html-webpack-plugin": "4.0.0-alpha.2",
     "identity-obj-proxy": "3.0.0",
     "jest": "23.6.0",
